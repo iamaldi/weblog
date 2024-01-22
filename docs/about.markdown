@@ -1,13 +1,13 @@
 ---
 layout: page
-title: What about it ?
+title: What is this about ?
 permalink: /about
 ---
 
-> 🎩 Howdy, stranger and thank you for checking out this masterpiece.
+Hey there, I'm Altion and this is my web log archive hosting content mostly related to cybersecurity research.
 
-Some day, *slaps_roof_of_car* this bad boy will have great educational content.\
-Till then, it's a simple web log archive that I will be using to motivate myself and write about stuff related (and maybe not) to cybersecurity.
-
-Right now this weblog has a total of {{site.posts.size}} {% if site.posts.size > 1 %}{{"posts"}}{% else %}{{"post"}}{% endif %}.\
 Enjoy!
+
+
+
+<small>Number of posts: {{site.posts.size}}</small>

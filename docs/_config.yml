@@ -20,16 +20,18 @@
 
 title: weblog
 description: >- # this means to ignore newlines until "baseurl:"
-  Personal web log archive about cybersecurity stuff.
+  Altion's web log about cybersecurity and stuff.
 baseurl: "/weblog" # the subpath of your site, e.g. /blog
 url: "https://iamaldi.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  iamaldi
+twitter_username: altioff
 
 # Build settings
 theme: minima
 
 # markdown: GFM
 show_excerpts: true
+future: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.

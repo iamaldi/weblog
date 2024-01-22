@@ -10,20 +10,48 @@ layout: default
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ "Recent Posts" }}</h2>
+
+  <!-- display pinned posts -->
+     {% for post in site.tags.pinned %}
+        <h2 class="post-list-heading">{{ "Pinned Posts" }}</h2>
+        <ul class="post-list">
+          <li>
+            <h3 style="margin-bottom: 0px; margin-top: 10px;">
+              <a class="post-link" href="{{ post.url | relative_url }}">
+                {{ post.title | escape }}
+              </a>
+            </h3>
+            
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ post.date | date: date_format }}</span>
+            
+            {%- if site.show_excerpts -%}
+              {{ post.excerpt }}
+            {%- endif -%}
+          </li>
+        </ul>
+    {% endfor %}
+
+    <!-- display latest 4 posts -->
+
+    <h2 class="post-list-heading">{{ "Latest Posts" }}</h2>
     <ul class="post-list">
       {%- for post in site.posts limit:4 -%}
       <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
+        <h3 style="margin-bottom: 0px; margin-top: 10px;">
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
         </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        
+        <div class="post-excerpt">
+          {%- if site.show_excerpts -%}
+            {{ post.excerpt }}
+          {%- endif -%}
+        </div>
+        <hr />
       </li>
       {%- endfor -%}
     </ul>
