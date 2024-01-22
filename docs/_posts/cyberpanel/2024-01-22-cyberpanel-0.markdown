@@ -45,7 +45,7 @@ This could look like a bit of a mess, and you might be right, to an extent. Befo
 - __August 1, 2023__: Sent a LinkedIn message to CyberPanel's GitHub repository owner. No reply.
 - __January 4, 2024__: Tagged CyberPanel and its owner's accounts on Twitter asking for security contact details. No reply.
 - __January 13, 2024__: Sent an email to CyberPanel support. No reply.
-- __January, 20, 2024__: Publication of findings.
+- __January, 22, 2024__: Publication of findings.
 
 As you can see, multiple attempts were made to responsibly disclose these vulnerabilities, however, in each one of them the vendor was unresponsive.
 
