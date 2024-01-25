@@ -12,10 +12,10 @@ layout: default
       </time>
 
       {%- if page.last_modified_at -%}
-      • Last update on 
+      • Last updated on 
         <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
           {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          <i>{{ page.last_modified_at | date: date_format }}</i>
+          {{ page.last_modified_at | date: date_format }}
         </time>
       
       {%- endif -%}

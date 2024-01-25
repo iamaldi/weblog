@@ -3,7 +3,7 @@ title:  "[6] CyberPanel - Insecure Generation and Storage of API tokens"
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-26
 permalink: /posts/cyberpanel-6
 categories: cyberpanel, security research
 ---
@@ -37,7 +37,7 @@ In CyberPanel versions between 1.8.7 and 2.3.4, the user API tokens are insecure
     </tr>
 </table>
 
-Compromise of the backend database could expose the plaintext credentials and API tokens of the registered CyberPanel users.
+Compromise of the CyberPanel database could expose the Base64-encoded API tokens. This could allow an attacker to recover the plaintext account credentials of all CyberPanel users registered in the compromised instance.
 
 #### Technical Analysis
 

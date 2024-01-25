@@ -3,7 +3,7 @@ title:  "[5] CyberPanel - Bypass of Security Controls in `commandInjectionCheck(
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-26
 permalink: /posts/cyberpanel-5
 categories: cyberpanel, security, research
 ---
@@ -206,7 +206,7 @@ root
 
 #### Further Reading
 
-If you're still curious, then there's something behind door 6 (or 7?!): [Insecure Generation and Storage of API Tokens](/weblog{% post_url 2024-01-22-cyberpanel-6 %})
+If you're still curious, there might be something behind door number 6 (or 7?!): [Insecure Generation and Storage of API Tokens](/weblog{% post_url 2024-01-22-cyberpanel-6 %})
 
 <h5 class="references">References</h5>
 

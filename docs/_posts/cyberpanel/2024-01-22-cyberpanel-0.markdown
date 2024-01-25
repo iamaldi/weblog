@@ -3,7 +3,7 @@ layout: post
 title:	"Multiple Vulnerabilities in CyberPanel"
 author: Altion
 date: 2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-26
 permalink:	/posts/cyberpanel-0
 categories: cyberpanel, security research
 tags: pinned
@@ -37,7 +37,7 @@ This short adventure resulted in the discovery of significant vulnerabilities in
 | Medium	 		| [Insecure Generation and Storage of API Tokens](/weblog{% post_url 2024-01-22-cyberpanel-6 %}) 															|
 | Medium       		| [Broken Authentication and Local File Inclusion (LFI) in '/api/FetchRemoteTransferStatus' endpoint](/weblog{% post_url 2024-01-22-cyberpanel-7 %}) 		|
 
-This could look like a bit of a mess, and you might be right, to an extent. Before you arrive at that conclusion, take a look at the findings and the maybe at codebase itself. We can then maybe discuss about sharing some headache pills with the potency of tranquilizing an elephant.
+This might look like a bit of a mess, and you could be right, to an extent. Before you arrive at that conclusion, however, take a look at the findings and see for yourself 😄.
 
 #### Timeline
 
@@ -53,6 +53,21 @@ As you can see, multiple attempts were made to responsibly disclose these vulner
 
 To add to this, there was no security contact or policy on CyberPanel's website and the GitHub repository.
 
+#### Timeline Update
+
+- __January, 22, 2024__: Vendor reached out, started patching and requested the issues to remain private until patches were tested and released.
+- __January, 22, 2024__: Blog was made private. Planned publication set for Friday, January 26th, 2024.
+- __January, 25, 2024__: Reached out to the vendor for a status update. Vendor was still testing the patches, preparing for the next release.
+- __January, 26, 2024__: Blog was made public again. Awaiting vendor's announcement for the next release. 
+
+
+Once these posts were published, Usman from CyberPanel reached out and we had a chat about some of the findings. He was very responsive in starting fixing the identified issues right away. Although I appreciate the quick action, this urgency could have been avoided entirely, if we had established proper communication earlier in the process.
+
+To avoid similar issues in the future, and maybe motivate other researches to take a look at CyberPanel and improve its security posture, I suggested the introduction of dedicated security contact details (security.txt, security email address, and public PGP key).
+
+In addition, GitHub's _private vulnerability reporting[^2]_ feature could be used. This would allow researchers to privately report security vulnerabilities directly to the CyberPanel GitHub repository.
+
 <h5 class="references">References</h5>
 
 [^1]: <a href="https://github.com/usmannasir/cyberpanel" target="_blank">https://github.com/usmannasir/cyberpanel</a>
+[^2]: <a href="https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/about-repository-security-advisories" target="_blank">https://docs.github.com/en/code-security/security-advisories/working-with-repository-security-advisories/about-repository-security-advisories</a>

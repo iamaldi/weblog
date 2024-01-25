@@ -3,7 +3,7 @@ title:  "[3] CyberPanel - Authentication Bypass in File Manager's Upload Functio
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-26
 permalink: /posts/cyberpanel-3
 categories: cyberpanel, security, research
 ---
@@ -95,7 +95,7 @@ The `upload()` function attempts to extract the user details from the session id
 
 In this case, when an exception is handled, even though an authentication error occured, the requests goes through (lines 146-147), and the upload request is forwarded for processing (lines 149-150). This bug was introduced in commit [bcdb0ac59507be08a1900ee025d406cea5c21b9d](https://github.com/usmannasir/cyberpanel/commit/bcdb0ac59507be08a1900ee025d406cea5c21b9d).
 
-#### Proof of Concept Unauthenticated File Upload
+#### Proof-of-Concept Unauthenticated File Upload
 
 The following unauthenticated HTTP POST request attempts to upload a PHP file in the root `public_html` folder of the `test.local` website:
 
