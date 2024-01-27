@@ -3,7 +3,7 @@ title:  "[2] CyberPanel - Authentication Bypass and Local File Inclusion (LFI) i
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-27
 permalink: /posts/cyberpanel-2
 categories: cyberpanel, security research
 ---
@@ -41,7 +41,7 @@ In CyberPanel versions between 1.8.7 and 2.3.4, the CloudAPI `statusFunc()` func
     </tr>    
     <tr>
         <th>Affected Versions</th>
-        <td>1.8.7 - 2.3.4</td>
+        <td>1.8.7 - 2.3.4, fixed in v2.3.5</td>
     </tr>
 </table>
 

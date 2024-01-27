@@ -3,12 +3,12 @@ title:  "[7] CyberPanel - Broken Authentication and Local File Inclusion (LFI) i
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-27
 permalink: /posts/cyberpanel-7
 categories: cyberpanel, security research
 ---
 
-In CyberPanel versions between 1.7 (possibly earlier) and 2.3.4, the `FetchRemoteTransferStatus()` function used in 'Remote Backups' is missing sufficient authentication controls and is vulenerable to LFI.
+In CyberPanel versions between 1.7 (possibly earlier) and 2.3.4, the `FetchRemoteTransferStatus()` function used in 'Remote Backups' is missing sufficient authentication controls and is vulnerable to LFI.
 
 <table>
     <tr>
@@ -33,7 +33,7 @@ In CyberPanel versions between 1.7 (possibly earlier) and 2.3.4, the `FetchRemot
     </tr>    
     <tr>
         <th>Affected Versions</th>
-        <td>1.7 - 2.3.4</td>
+        <td>1.7 - 2.3.4, fixed in v2.3.5</td>
     </tr>
 </table>
 
@@ -43,7 +43,7 @@ Injecting payloads such as `testfolder /etc/passwd #` in the JSON `dir` paramete
 
 Attackers can also exploit this vulnerability to cause denial-of-service (DoS) by making multiple unauthenticated HTTP POST calls to include large local files in an attempt to exhaust the available system resources.
 
-Combining this vulnerability with the [Security Middleware Bypass](/weblog{% post_url 2024-01-22-cyberpanel-4 %}), it is possible to gain root access on the underlying CyberPanel host. This approach is described below after the technical analysis.
+Combining this vulnerability with the [Security Middleware Bypass](/weblog{% post_url 2024-01-22-cyberpanel-4 %}), it is possible to gain root access on the underlying CyberPanel host. This attack approach is described below after the technical analysis.
 
 #### Technical Analysis
 

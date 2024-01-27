@@ -3,7 +3,7 @@ title:  "[3] CyberPanel - Authentication Bypass in File Manager's Upload Functio
 layout: post
 author: Altion
 date:   2024-01-22
-last_modified_at: 2024-01-26
+last_modified_at: 2024-01-27
 permalink: /posts/cyberpanel-3
 categories: cyberpanel, security, research
 ---
@@ -33,7 +33,7 @@ In CyberPanel versions between 2.3.1 and 2.3.4, the File Manager's Upload functi
     </tr>    
     <tr>
         <th>Affected Versions</th>
-        <td>2.3.1 - 2.3.4</td>
+        <td>2.3.1 - 2.3.4, fixed in v2.3.5</td>
     </tr>
 </table>
 

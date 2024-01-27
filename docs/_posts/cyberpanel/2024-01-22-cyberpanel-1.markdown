@@ -3,7 +3,7 @@ title:  "[1] CyberPanel - WebTerminal Authentication Bypass"
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-27
 permalink: /posts/cyberpanel-1
 categories: cyberpanel, security research
 ---
@@ -33,14 +33,14 @@ In CyberPanel versions between 1.9.2 and 2.1.1, the WebTerminal functionality is
     </tr>    
     <tr>
         <th>Affected Versions</th>
-        <td>1.9.2 - 2.1.1</td>
-    </tr>
+        <td>1.9.2 - 2.1.1, fixed in v2.3.5</td>
+    </tr> 
 </table>
 
 
-WebTerminal was introduced[^1] in version 1.9.2 of CyberPanel and by design is available only to administrative users. Essentially, WebTerminal can be used to gain shell access on the underlying host running CyberPanel. While users have found the functionality useful, it was quite interesting to see the vendor's decision to disable[^2] the feature in version 2.1.2.
+Introduced[^1] in version 1.9.2, WebTerminal can be accessed only by administrative users. Essentially, WebTerminal can be used to gain shell access on the underlying host running CyberPanel. While users have found the functionality useful, it was quite interesting to see the vendor's decision to disable[^2] the feature in version 2.1.2.
 
-As of January 2024, CyberPanel's latest version is 2.3.4 and the WebTerminal feature remains disabled. However, since the functionality is still present in code, it would not be very difficult for someone to enable it on their own. As a result, outdated versions of CyberPanel, and instances where WebTerminal is enabled could still be affected by this vulnerability, and should be examined for indications of compromise. 
+At the time of writing, CyberPanel's latest version is 2.3.4 and the WebTerminal feature remains disabled. However, since the functionality is still present in code, it would not be very difficult for someone to enable it on their own. As a result, outdated versions of CyberPanel, and instances where WebTerminal is enabled could still be affected by this vulnerability, and should be examined for indications of compromise. 
 
 To make it somewhat more interesting and easier for technical people to follow these posts, I have included code snippets wherever possible. Hopefully you have some fun. Here we go.
 
@@ -80,11 +80,11 @@ Here, CyberPanel generates a random password (line 21). The password is then wri
 ...
 ```
 
-Once the WebTerminal is page was fully loaded, CyberPanel uses the provided authentication credentials to establish a connection with the WebTerminal service exposed via the WebSockets protocol on port `5678`. This process is explained below.
+When the WebTerminal page is fully loaded, CyberPanel extractes and uses the authentication credentials to establish the WebSockets connection on port `5678`. Specifics to this implementation are further explained below.
 
-> I would like to note something that might not be entirely obvious here. Apart from generating the credentials that are subsequently used for authentication, the `terminal()` function also starts the SSH service. While it should be expected that the `/Terminal` should have been authenticated, in reality it is completely unauthenticated. And this will play a significant role later in the analysis.
+> Note on something that might not be entirely obvious in the above code snippet.<br /><br /> Aside from generating WebTerminal authentication credentials, the `terminal()` function implementation also starts the SSH service.<br /><br /> While the expectation was that access to the `/Terminal` page should have been authenticated, in reality it is completely unauthenticated. And this will play a significant role later in the analysis.
 
-Authentication requests, including all of the incoming WebSockets traffic are handled by the `on_message()` function of the `WSHandler` class:
+In code, authentication requests, including all of the incoming WebSockets traffic are handled by the `on_message()` function in the `WSHandler` class:
 
 ```python
 # File: WebTerminal/CPWebSocket.py
@@ -120,9 +120,11 @@ Authentication requests, including all of the incoming WebSockets traffic are ha
 ...
 ```
 
-Starting on lines 117 through 121, the WebSocket connection is initialized with the authentication details passed in the JSON `password` and `verifyPath` fields. I should note here that these credentials are used in all WebSocket messages when WebTerminal is used (lines 122-125). 
+Starting from lines 117-121, the WebSocket connection is initialized with the authentication details passed in the JSON `password` and `verifyPath` fields.
 
-If the file indicated by `verifyPath` contains an exact match of the password found in the `password` field, authentication is considered successful and WebTerminal executes the shell command found within the `data` field (line 125). This authentication check is also performed when returning the standard output back to the user (lines 82-84): 
+If the file indicated by `verifyPath` contains an exact match of the password found in the `password` field, authentication is considered successful. WebTerminal then executes the shell command found within the JSON `data` field (line 125).
+
+`WSHandler` will check these passwords when returning the standard output back to the user (lines 82-84). This check seems kind of redundant since the passwords are already stored in the class instance: 
 
 ```python
 # File: WebTerminal/CPWebSocket.py
@@ -147,9 +149,9 @@ If the file indicated by `verifyPath` contains an exact match of the password fo
 ...
 ```
 
-Do you notice anything weird in this authentication mechanism? Well, it is possible to bypass the authentication by providing system files with known contents in the JSON `verifyPath` field.
+Do you notice anything weird in this authentication mechanism? Well, using the JSON `verifyPath` field it is possible to circumvent authentication by providing paths to system files with known contents.
 
-Specifically, the authentication mechanism relies on user-controlled input to determine the storage location of the file containing the generated password. For example, it is possible to send the following JSON data and bypass authentication in the WebTerminal:
+Specifically, the authentication mechanism relies on user-controlled input to determine the storage location of the file containing the generated password. For example, it is possible to send the following JSON data and bypass the WebTerminal authentication:
 
 ```json
 {
@@ -161,11 +163,11 @@ Specifically, the authentication mechanism relies on user-controlled input to de
 }
 ```
 
-In this example, the `/dev/null` device file returns no data which can be considered as an empty string. Since the contents of the `/dev/null` file match the given empty password string, all authentication checks will be marked as successful.
+In this example, the Linux `/dev/null` device file returns no data which can be considered as an empty string. Since the contents of the `/dev/null` file match the given empty password string, all authentication checks will be marked as successful.
 
 #### Proof-of-Concept Exploit Code
 
-To demonstrate the low attack complexity, I wrote the following Python script which can be used to bypass the WebTerminal authentication mechanism and execute arbitrary shell commands as root. Nothing particularly fancy, but here you go:
+To demonstrate the low attack complexity, I wrote the following Python script which can be used to bypass the WebTerminal authentication mechanism and execute arbitrary shell commands as root:
 
 ```python
 #!/usr/bin/env python3

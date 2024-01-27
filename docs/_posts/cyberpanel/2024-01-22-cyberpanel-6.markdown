@@ -3,7 +3,7 @@ title:  "[6] CyberPanel - Insecure Generation and Storage of API tokens"
 layout: post
 author: Altion
 date:   2024-01-22
-last_modified_at: 2024-01-26
+last_modified_at: 2024-01-27
 permalink: /posts/cyberpanel-6
 categories: cyberpanel, security research
 ---
@@ -33,7 +33,7 @@ In CyberPanel versions between 1.8.7 and 2.3.4, the user API tokens are insecure
     </tr>    
     <tr>
         <th>Affected Versions</th>
-        <td>1.8.7 - 2.3.4</td>
+        <td>1.8.7 - 2.3.4, fixed in v2.3.5</td>
     </tr>
 </table>
 

@@ -3,7 +3,7 @@ title:  "[4] CyberPanel - Security Middleware Bypass"
 layout: post
 author: Altion
 date:   2024-01-22
-# last_modified_at: 2024-01-22
+last_modified_at: 2024-01-27
 permalink: /posts/cyberpanel-4
 categories: cyberpanel, security, research
 ---
@@ -33,11 +33,11 @@ In CyberPanel versions 2.1.1 through 2.3.4 the Security Middleware mechanism is 
     </tr>    
     <tr>
         <th>Affected Versions</th>
-        <td>2.1.1 - 2.3.2</td>
+        <td>2.1.1 - 2.3.2, fixed in v2.3.5</td>
     </tr>
 </table>
 
-Authenticated CyberPanel users can exploit the described vulnerabilities to gain remote code execution by injecting commands in HTTP POST calls where the undelying function executes a shell command. HTTP POST requests are exempt from analysis by the Security Middleware. Attackers can exploit this to target application functions where shell commands are constructed with user-supplied input.
+Attackers can exploit this vulnerability to circumvent the input validation controls implemented in the Security Middleware.
 
 In combination with other known issues, such as [Broken Authentication and Local File Inclusion (LFI) in '/api/FetchRemoteTransferStatus' endpoint](/weblog{% post_url 2024-01-22-cyberpanel-7 %}), unauthenticated attackers can achieve remote code execution with root privileges on the CyberPanel host. Using the elevated privileges, unauthenticated adversaries can gain access to the hosted websites, their related databases and user data, as well as unrestricted access on the underlying system where CyberPanel is installed.
 
