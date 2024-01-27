@@ -3,7 +3,7 @@ layout: post
 title:	"Multiple Vulnerabilities in CyberPanel"
 author: Altion
 date: 2024-01-22
-last_modified_at: 2024-01-26
+last_modified_at: 2024-01-27
 permalink:	/posts/cyberpanel-0
 categories: cyberpanel, security research
 tags: pinned
